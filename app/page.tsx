@@ -1,15 +1,21 @@
-"use client";
-import {FormEvent,useState} from "react";
-import {caseStudies} from "./cases/data";
-const services=[["Логотип и фирменный стиль","Стратегия, нейминг, визуальная система и правила работы с брендом."],["Разработка сайтов","Исследование, прототип, дизайн и разработка сайта под задачи бизнеса."],["Продвижение и реклама","Креативные кампании, медиапланирование и аналитика эффективности."],["Контент-маркетинг","Контент-стратегия, фото, видео и материалы для всех каналов."]];
-const plans=[{name:"Старт",price:"200 000 ₽",items:["Анализ проекта","Упаковка проекта","Соцсети","Презентация"]},{name:"Орбита",price:"450 000 ₽",hot:true,items:["Анализ проекта","Гайдлайн","Сайт + SEO","Соцсети + SMM","Презентация"]},{name:"Сверхновая",price:"1 000 000 ₽",items:["Брендбук","Сайт + SEO","Соцсети + SMM","Контент-стратегия","Реклама"]}];
-const Arrow=()=> <span>↗</span>;
-export default function Home(){const[open,setOpen]=useState(0);const[sent,setSent]=useState(false);const submit=(e:FormEvent<HTMLFormElement>)=>{e.preventDefault();setSent(true)};return <main>
-<section className="hero" id="top"><header className="header shell"><a className="logo" href="#top">Supernova<i>✦</i></a><nav><a href="#about">О нас</a><a href="#projects">Проекты</a><a href="#services">Услуги</a><a href="#pricing">Стоимость</a></nav><a href="#contact">Связаться ↗</a></header><div className="heroGrid shell"><div><p className="eyebrow">— Агентство маркетинга и брендинга</p><h1>Ваш проект —<br/>новая звезда<br/><em>во вселенной</em></h1><p className="lead">Создаём брендинг, сайты и рекламу<br/>для девелопмента и недвижимости</p><a className="cta" href="#contact">Обсудить проект <Arrow/></a></div><div className="cosmos"><i/><b/></div></div><div className="meta shell"><span className="spark">✦</span><span>12 лет опыта</span><b>•</b><span>80+ реализованных проектов</span><a href="#about">Листайте вниз ↓</a></div></section>
-<section className="about shell section" id="about"><Label n="01" text="О нас"/><div className="aboutMain"><p>Supernova — явление, в ходе которого звезда увеличивает светимость в сотни миллионов раз.</p><h2>Мы делаем так, чтобы<br/>ваш проект <em>увидели.</em></h2><div className="columns"><p>Специализируемся на маркетинге и брендинге проектов в сфере девелопмента и недвижимости.</p><p>Создаём узнаваемый образ, сайты, рекламу и контент, помогаем выделиться среди конкурентов.</p></div></div><div className="metrics">{[["65%","рост спроса на услуги"],["70%","покупают онлайн"],["40%","инвестиций в недвижимость"],["85%","информации в интернете"]].map(x=><div key={x[0]}><strong>{x[0]}</strong><span>{x[1]}</span></div>)}</div></section>
-<section className="projects section" id="projects"><div className="shell sectionHead"><Label n="02" text="Проекты"/><h2>Наши проекты</h2><p>Бренды и digital-продукты, которые стали заметными в своей категории.</p></div><div className="caseGrid shell">{caseStudies.map(c=><a className="case" href={`/cases/${c.slug}`} key={c.slug}><div className={`art ${c.tone}`}><i/><b>S{c.number}</b><span className="viewCase">Смотреть кейс ↗</span></div><div className="caseInfo"><span>{c.number}</span><div><h3>{c.title}</h3><p>{c.category}</p></div><Arrow/></div></a>)}</div></section>
-<section className="services shell section" id="services"><Label n="03" text="Услуги"/><div className="split"><h2>Запускаем проекты<br/><em>на новую орбиту</em></h2><p>От идеи до измеримого результата — одна команда на всех этапах.</p></div><div className="serviceList">{services.map((s,i)=><button key={s[0]} className={open===i?"active":""} onClick={()=>setOpen(i)}><span>0{i+1}</span><div><h3>{s[0]}</h3><p>{s[1]}</p></div><i>{open===i?"−":"+"}</i></button>)}</div></section>
-<section className="pricing section" id="pricing"><div className="shell"><Label n="04" text="Стоимость"/><div className="split"><h2>Выберите<br/><em>масштаб запуска</em></h2><p>Пакеты помогают понять порядок инвестиций. Финальная оценка — после брифа.</p></div><div className="plans">{plans.map((p,i)=><article className={p.hot?"hot":""} key={p.name}>{p.hot&&<small>Популярный</small>}<span>0{i+1}</span><h3>{p.name}</h3><ul>{p.items.map(x=><li key={x}>{x}</li>)}</ul><footer><strong>от {p.price}</strong><a href="#contact"><Arrow/></a></footer></article>)}</div></div></section>
-<section className="contact section" id="contact"><div className="shell contactGrid"><div><Label n="05" text="Контакты"/><h2>Готовы зажечь<br/><em>новую звезду?</em></h2><p>Расскажите о задаче — вернёмся с вопросами и предложим следующий шаг.</p><a className="email" href="mailto:super@yandex.ru">super@yandex.ru</a></div>{sent?<div className="success"><span>✦</span><h3>Заявка отправлена</h3><p>Спасибо! Мы скоро свяжемся с вами.</p><button onClick={()=>setSent(false)}>Отправить ещё одну</button></div>:<form onSubmit={submit}><label>Ваше имя<input placeholder="Как к вам обращаться?" required/></label><label>Телефон / Telegram<input placeholder="+7 999 000-00-00" required/></label><label>Какие у вас задачи<textarea placeholder="Коротко расскажите о проекте" rows={3} required/></label><button>Отправить заявку <Arrow/></button><small>Нажимая кнопку, вы соглашаетесь с обработкой данных</small></form>}</div></section>
-<footer className="footer shell"><a className="logo" href="#top">Supernova<i>✦</i></a><span>Санкт-Петербург, Россия</span><span>© 2026</span><a href="#top">Наверх ↑</a></footer></main>}
-function Label({n,text}:{n:string,text:string}){return <div className="label"><span>{n}</span>{text}</div>}
+import { AboutSection } from "./components/home/AboutSection";
+import { ContactSection } from "./components/home/ContactSection";
+import { HeroSection } from "./components/home/HeroSection";
+import { PricingSection } from "./components/home/PricingSection";
+import { ProjectsSection } from "./components/home/ProjectsSection";
+import { ServicesSection } from "./components/home/ServicesSection";
+import { SiteFooter } from "./components/home/SiteFooter";
+
+export default function HomePage() {
+  return (
+    <main>
+      <HeroSection />
+      <AboutSection />
+      <ProjectsSection />
+      <ServicesSection />
+      <PricingSection />
+      <ContactSection />
+      <SiteFooter />
+    </main>
+  );
+}
